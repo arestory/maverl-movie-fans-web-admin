@@ -98,7 +98,15 @@ var app =new Vue({
 
                         var inst = new mdui.Dialog('#question-dialog');
                         inst.close();
-                       
+                        var index = app.items.indexOf(app.currentQuestion);
+                        json['url'] = app.currentQuestion['url'];
+                        json['id'] = app.currentQuestion['id'];
+                        json['type'] = app.currentQuestion['type'];
+                        app.items[index] = json;
+                        app.currentQuestion= json;
+                        //同步更新
+                        Vue.set(app.items,index,json);
+
                     }
 
                     mdui.snackbar({
@@ -122,11 +130,11 @@ var app =new Vue({
 
 
         },
-        showQuestionUpdateDialog:function(question){
+        showQuestionUpdateDialog:function(question,index){
 
             app.currentQuestion = question; 
             var inst = new mdui.Dialog('#question-dialog');
-              
+
             inst.open(); 
 
         },
@@ -153,7 +161,7 @@ var app =new Vue({
 
 
                                 item['url']=filePath+item['url'];
-                                console.log( item['url']    )
+                              
 
                             });
                             app.items = app.items.concat(array);

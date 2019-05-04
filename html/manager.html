@@ -25,7 +25,7 @@
                 <div style="margin-top:20px">关键词：{{item.keywords}}</div>
                 <div style="margin-top:20px">答案：{{item.answer}}</div>
                 <button :style="editBtnStyle" class="mdui-btn mdui-color-theme-accent mdui-ripple"
-                    v-on:click="showQuestionUpdateDialog(item)">
+                    v-on:click="showQuestionUpdateDialog(item,index)">
                     <i class="mdui-icon material-icons">edit</i>
                 </button>
 
@@ -89,8 +89,8 @@
             <div class="mdui-dialog" id="question-dialog"  >
                 <div class="mdui-dialog-content">
                     <h3>问题详情</h1>
-                        <img v-if="currentQuestion.type=='image' " :src="currentQuestion.url" width="640" height="360px"></image>
-                        <audio v-if="currentQuestion.type=='audio' " :src="currentQuestion.url" width="640px" height="360px"
+                        <img v-if="currentQuestion.type=='image' " :src="currentQuestion.url" :width="imageWidth" :height="imageHeight"></image>
+                        <audio v-if="currentQuestion.type=='audio' " :src="currentQuestion.url" 
                             controls="controls"></audio>
                         <div class="mdui-textfield">
                             <label class="mdui-textfield-label">标题:</label>

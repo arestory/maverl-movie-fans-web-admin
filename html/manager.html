@@ -1,0 +1,135 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="http://cdnjs.loli.net/ajax/libs/mdui/0.4.2/css/mdui.min.css">
+    <link rel="stylesheet" href="../css/manager.css">
+    <script src="http://cdnjs.loli.net/ajax/libs/mdui/0.4.2/js/mdui.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>管理后台</title>
+</head>
+
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
+
+    <div id="app">
+
+        <div class="mdui-list" :width="imageWidth" v-for="item ,index in items" style="margin-left:20px;margin-top:20px;">
+            <div :text="index" :id="item.id">
+
+                <div> 
+                    <div style="margin-bottom:10px">{{index+1}}:{{item.title}}</div>
+                    <img v-if="item.type=='image' " :src="item.url" :width="imageWidth" :height="imageHeight"></image>
+                </div>
+                <audio v-if="item.type=='audio' " :src="item.url" width="640px" height="360px"
+                    controls="controls"></audio>
+                <div style="margin-top:20px">关键词：{{item.keywords}}</div>
+                <div style="margin-top:20px">答案：{{item.answer}}</div>
+                <button :style="editBtnStyle" class="mdui-btn mdui-color-theme-accent mdui-ripple"
+                    v-on:click="showQuestionUpdateDialog(item)">
+                    <i class="mdui-icon material-icons">edit</i>
+                </button>
+
+            </div>
+
+            <div style="margin-top:10px" class="mdui-divider"></div>
+
+
+
+        </div>
+
+        <div v-if="hadNoMoreItems" style="margin:10px;text-align:center">没有更多了</div>
+
+        <div class="mdui-progress" v-if="isLoadMoreFinish == false">
+            <div class="mdui-progress-indeterminate"></div>
+        </div>
+
+        // <form id="questionForm" :action="uploadUrl" method="post">
+
+            <div class="mdui-dialog" id="add-dialog">
+                <div class="mdui-dialog-content">
+                    <h3>添加问题</h1>
+
+                        <form id="questionForm" onsubmit="return false" action="##" method="post">
+                            <div class="mdui-textfield">
+                                <label class="mdui-textfield-label">文件:</label>
+                                <button class="mdui-btn mdui-btn-raised mdui-ripple" onclick="chooseFile()" id=""
+                                    type="button">{{chooseFileBtnText}}</button>
+                                <input class="mdui-textfield-input" id="chooseFileInput"
+                                    style="visibility:hidden;position:absolute;top:0px;width:0px" type="file"
+                                    name="file" />
+                            </div>
+                            <div class="mdui-textfield">
+                                <label class="mdui-textfield-label">标题:</label>
+                                <input class="mdui-textfield-input" type="text" id="titleInput" name="title" />
+                            </div>
+                            <div class="mdui-textfield">
+                                <label class="mdui-textfield-label">关键词:</label>
+                                <input class="mdui-textfield-input" maxlength="21" id="keywordInput" type="text"
+                                    name="keywords" />
+                            </div>
+                            <div class="mdui-textfield">
+                                <label class="mdui-textfield-label">分数:</label>
+                                <input class="mdui-textfield-input" type="number" id="pointInput" name="point" />
+                            </div>
+                            <div class="mdui-textfield">
+                                <label class="mdui-textfield-label">答案:</label>
+                                <input class="mdui-textfield-input" id="answerInput" type="text" name="answer" />
+                            </div>
+                            <button class="mdui-btn mdui-color-theme-accent mdui-ripple" type="button"
+                                onclick="uploadQuestion()" value="提交">提交</button>
+
+                        </form>
+
+                </div>
+                <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
+
+            </div>
+
+
+            <div class="mdui-dialog" id="question-dialog"  >
+                <div class="mdui-dialog-content">
+                    <h3>问题详情</h1>
+                        <img v-if="currentQuestion.type=='image' " :src="currentQuestion.url" width="640" height="360px"></image>
+                        <audio v-if="currentQuestion.type=='audio' " :src="currentQuestion.url" width="640px" height="360px"
+                            controls="controls"></audio>
+                        <div class="mdui-textfield">
+                            <label class="mdui-textfield-label">标题:</label>
+                            <input class="mdui-textfield-input" type="text" id="titleUpdateInput" name="title" :value="currentQuestion.title"/>
+                        </div>
+                        <div class="mdui-textfield">
+                            <label class="mdui-textfield-label">关键词:</label>
+                            <input class="mdui-textfield-input" maxlength="21" id="keywordUpdateInput" type="text"
+                                name="keywords" :value="currentQuestion.keywords"></input>
+                        </div>
+                        <div class="mdui-textfield">
+                            <label class="mdui-textfield-label">分数:</label>
+                            <input class="mdui-textfield-input" type="number" id="pointUpdateInput" name="point"  :value="currentQuestion.point" ></input>
+                        </div>
+                        <div class="mdui-textfield">
+                            <label class="mdui-textfield-label">答案:</label>
+                            <input class="mdui-textfield-input" id="answerUpdateInput" type="text" name="answer" :value="currentQuestion.answer" ></input>
+                        </div>
+                        <button class="mdui-btn mdui-color-theme-accent mdui-ripple" type="button"
+                             v-on:click="updateQuestion(currentQuestion.id)" value="提交">提交修改</button>
+
+
+                </div>
+                <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
+
+            </div>
+    </div>
+
+    <div class="mdui-fab-wrapper" mdui-fab="">
+        <button class="mdui-fab mdui-ripple mdui-color-theme-accent" onclick="addQuestion()">
+            <i class="mdui-icon material-icons">add</i>
+        </button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+
+    <script src="../js/jq.js"></script>
+    <script src="../js/manager.js"></script>
+</body>
+
+
+
+</html>

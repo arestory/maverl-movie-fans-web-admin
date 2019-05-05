@@ -4,6 +4,7 @@ var host ="http://212.64.93.216:7777"
 // var host ="http://localhost:7575"
 var getQuestionListPath = "/question/list/" 
 var updateQuestionPath = "/question/update/" 
+var uploadQuestionPath = "/question/upload" 
 var filePath = "http://212.64.93.216:8000/file/" 
 console.log($(window).width());
 windowWidth = $(window).width();
@@ -28,11 +29,12 @@ var app =new Vue({
 
     el: "#app",
     data:{
-        currentPage:1,
+        currentPage:2,
         isLoadMoreFinish:true,
         hadNoMoreItems:false,
         chooseFileBtnText:"选择文件",
         items: [],   
+        initFinish:false,
         item:{
 
            
@@ -44,7 +46,7 @@ var app =new Vue({
         currentQuestion:{
             type:"image"
         },
-        uploadUrl:"http://212.64.93.216:7777/question/upload",
+        uploadUrl:host+uploadQuestionPath,
  
         updateQuestion:function(questionId){
 
@@ -142,15 +144,22 @@ var app =new Vue({
 
             app.isLoadMoreFinish = false;
    
+           
 
             app.currentPage = page;
             var url = host+getQuestionListPath+page+"/"+20;
             $.ajax(url, {
         
                 method :"GET",
+                data:{
+                    auth:1
+                },
                 success:function(data){
                     console.log(data);
                     app.isLoadMoreFinish = true; 
+                    if(!app.initFinish){
+                app.initFinish = true;
+            }
                     if(data['data']){
         
                         if(data['data'].length==0){

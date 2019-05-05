@@ -1,5 +1,3 @@
-
-//test hook
 var host ="http://212.64.93.216:7777"
 // var host ="http://localhost:7575"
 var getQuestionListPath = "/question/list/" 

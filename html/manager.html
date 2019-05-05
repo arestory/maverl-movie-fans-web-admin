@@ -7,6 +7,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>管理后台</title>
+     <style>
+       
+    </style>
 </head>
 
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
@@ -19,7 +22,13 @@
 
                 <div> 
                     <div style="margin-bottom:10px">{{index+1}}:{{item.title}}</div>
-                    <img v-if="item.type=='image' " :src="item.url" :width="imageWidth" :height="imageHeight"></image>
+
+                    <div v-if="item.type=='image' " style="position: relative;">
+                         <div style="position: absolute;">
+                          <img src="../img/placeholder.png"  :width="imageWidth" :height="imageHeight" />
+                        </div>  
+                         <img v-if="item.type=='image' " :src="item.url" :width="imageWidth" :height="imageHeight"/>
+                     </div>  
                 </div>
                 <audio v-if="item.type=='audio' " :src="item.url" width="640px" height="360px"
                     controls="controls"></audio>
@@ -89,7 +98,12 @@
             <div class="mdui-dialog" id="question-dialog"  >
                 <div class="mdui-dialog-content">
                     <h3>问题详情</h1>
-                        <img v-if="currentQuestion.type=='image' " :src="currentQuestion.url" :width="imageWidth" :height="imageHeight"></image>
+                      <div v-if="currentQuestion.type=='image' " style="position: relative;">
+                         <div style="position: absolute;">
+                          <img src="../img/placeholder.png"  :width="dialogImageWidth" :height="dialogImageHeight" />
+                        </div>  
+                         <img v-if="currentQuestion.type=='image' " :src="currentQuestion.url" :width="dialogImageWidth" :height="dialogImageHeight"/>
+                     </div>  
                         <audio v-if="currentQuestion.type=='audio' " :src="currentQuestion.url" 
                             controls="controls"></audio>
                         <div class="mdui-textfield">

@@ -9,6 +9,8 @@ windowWidth = $(window).width();
 if(windowWidth>1200){
     windowWidth=1200;
 }
+dialogImageWidth = 400+"px";
+dialogImageHeight = (400*9/16)+"px";
 imageWidth=(windowWidth-40)+"px"
 imageHeight=(windowWidth*9/16)+"px"
 editBtnStyle = "margin-left:"+(windowWidth-100-40)+"px;width:100px"
@@ -41,6 +43,8 @@ var app =new Vue({
         windowWidth:windowWidth,
         imageWidth:imageWidth,
         imageHeight:imageHeight,
+        dialogImageWidth : 240*16/9+"px",
+        dialogImageHeight : (240)+"px",
         currentQuestion:{
             type:"image"
         },

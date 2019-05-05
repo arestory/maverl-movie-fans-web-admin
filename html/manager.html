@@ -34,9 +34,9 @@
                     controls="controls"></audio>
                 <div style="margin-top:20px">关键词：{{item.keywords}}</div>
                 <div style="margin-top:20px">答案：{{item.answer}}</div>
-                <button :style="editBtnStyle" class="mdui-btn mdui-color-theme-accent mdui-ripple"
+                <button :style="editBtnStyle" class="mdui-btn  mdui-ripple"
                     v-on:click="showQuestionUpdateDialog(item,index)">
-                    <i class="mdui-icon material-icons">edit</i>
+                    <i class="mdui-icon material-icons" style="color:white">edit</i>
                 </button>
 
             </div>
@@ -84,7 +84,7 @@
                                 <label class="mdui-textfield-label">答案:</label>
                                 <input class="mdui-textfield-input" id="answerInput" type="text" name="answer" />
                             </div>
-                            <button class="mdui-btn mdui-color-theme-accent mdui-ripple" type="button"
+                            <button style="background-color:#F73E33" class="mdui-btnmdui-ripple" type="button"
                                 onclick="uploadQuestion()" value="提交">提交</button>
 
                         </form>
@@ -123,7 +123,7 @@
                             <label class="mdui-textfield-label">答案:</label>
                             <input class="mdui-textfield-input" id="answerUpdateInput" type="text" name="answer" :value="currentQuestion.answer" ></input>
                         </div>
-                        <button class="mdui-btn mdui-color-theme-accent mdui-ripple" type="button"
+                        <button style="background-color:#F73E33;color:white"  class="mdui-btn mdui-ripple" type="button"
                              v-on:click="updateQuestion(currentQuestion.id)" value="提交">提交修改</button>
 
 
@@ -134,8 +134,8 @@
     </div>
 
     <div class="mdui-fab-wrapper" mdui-fab="">
-        <button class="mdui-fab mdui-ripple mdui-color-theme-accent" onclick="addQuestion()">
-            <i class="mdui-icon material-icons">add</i>
+        <button style="background-color:#F73E33" class="mdui-fab mdui-ripple" onclick="addQuestion()">
+            <i class="mdui-icon material-icons" style="color:white">add</i>
         </button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>

@@ -13,7 +13,7 @@ dialogImageWidth = 400+"px";
 dialogImageHeight = (400*9/16)+"px";
 imageWidth=(windowWidth-40)+"px"
 imageHeight=(windowWidth*9/16)+"px"
-editBtnStyle = "margin-left:"+(windowWidth-100-40)+"px;width:100px"
+editBtnStyle = "margin-left:"+(windowWidth-100-40)+"px;width:100px;background-color:#F73E33"
 window.onresize= function(){
  
     app.windowWidth= $(window).width();
@@ -23,7 +23,7 @@ window.onresize= function(){
 
     app.imageWidth=  (app.windowWidth-40)+"px"
     app.imageHeight=(   app.imageWidth*9/16)+"px"
-    app.editBtnStyle="margin-left:"+(app.windowWidth-100-40)+"px;width:100px"
+    app.editBtnStyle="margin-left:"+(app.windowWidth-100-40)+"px;width:100px;background-color:#F73E33"
 }
 var app =new Vue({
 
